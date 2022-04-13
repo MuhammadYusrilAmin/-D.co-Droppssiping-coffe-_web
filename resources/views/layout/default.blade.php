@@ -46,37 +46,34 @@
 
                 <ul class="menu-inner py-1" style="margin-top:20px;">
                     <!-- Dashboard -->
-                    <li class="menu-item active">
-                        <a href="index.html" class="menu-link">
+                    <li class="menu-item @yield('dashboard')">
+                        <a href="{{url('/dashboard')}}" class="menu-link">
                             <i class="menu-icon tf-icon bx bxs-home"></i>
-                            <div data-i18n="Analytics">Dashboard</div>
+                            <div data-i18n="Analytics[0]">Dashboard</div>
                         </a>
                     </li>
-
-                    <li class="menu-item">
-                        <a href="index.html" class="menu-link">
+                    <li class="menu-item @yield('user')">
+                        <a href="{{url('/user')}}" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-user"></i>
-                            <div data-i18n="Analytics">User</div>
+                            <div data-i18n="Analytics[0]">User</div>
                         </a>
                     </li>
 
-                    <li class="menu-item">
-                        <a href="index.html" class="menu-link">
+                    <li class="menu-item @yield('barang')">
+                        <a href="{{url('/barang')}}" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-box"></i>
                             <div data-i18n="Analytics">Barang</div>
                         </a>
                     </li>
 
-                    <li class="menu-item">
-                        <a href="index.html" class="menu-link">
+                    <li class="menu-item @yield('checkout')">
+                        <a href="{{url('/checkout')}}" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-cart-add"></i>
                             <div data-i18n="Analytics">Check out</div>
                         </a>
                     </li>
-
-
-                    <li class="menu-item">
-                        <a href="index.html" class="menu-link">
+                    <li class="menu-item @yield('transaksi')">
+                        <a href="{{url('/transaksi')}}" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-wallet-alt"></i>
                             <div data-i18n="Analytics">Transaksi</div>
                         </a>
@@ -171,11 +168,17 @@
                         </ul>
                     </div>
                 </nav>
-
                 <!-- / Navbar -->
 
                 <!-- Content wrapper -->
 
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        @stack('before-content')
+                        @yield('content')
+                        @stack('after-content')
+                    </div>
+                </div>
                 <!-- / Content -->
 
                 <!-- Footer -->
