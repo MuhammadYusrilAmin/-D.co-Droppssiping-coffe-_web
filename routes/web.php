@@ -25,9 +25,7 @@ Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
 
-Route::get('/barang', function () {
-    return view('barang.index');
-});
+Route::resource('/barang',  \App\Http\Controllers\barangController::class);
 
 Route::get('/checkout', function () {
     return view('checkout.index');
