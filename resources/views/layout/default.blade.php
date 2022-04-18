@@ -23,6 +23,7 @@
 
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
     <script src="{{asset('assets/js/config.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -195,6 +196,9 @@
     <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+
+    <!-- SweetAlert -->
+    @include('sweetalert::alert')
 
     <!-- Core JS -->
     <!-- build:js asset/vendor/js/core.js -->

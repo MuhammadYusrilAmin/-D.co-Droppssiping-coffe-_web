@@ -19,7 +19,6 @@ class CreateBarangModelsTable extends Migration
             $table->string('harga', 15);
             $table->longText('deskripsi_barang');
             $table->string('jenis_barang', 10);
-            $table->string('status', 10);
             $table->string('stok', 10);
             $table->string('foto', 20);
             $table->timestamps();

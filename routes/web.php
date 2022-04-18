@@ -25,6 +25,10 @@ Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
 
+Route::get('/login2', function () {
+    return view('layout.login');
+});
+
 Route::resource('/barang',  \App\Http\Controllers\barangController::class);
 
 Route::get('/checkout', function () {
