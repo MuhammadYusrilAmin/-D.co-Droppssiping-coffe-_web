@@ -14,22 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout.default');
-});
+    return view('welcome');
+})->middleware('auth');
 
 Route::get('/user', function () {
     return view('user.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-});
+Route::resource('/user',  \App\Http\Controllers\userController::class)->middleware('auth');
 
-Route::get('/login2', function () {
-    return view('layout.login');
-});
-
-Route::resource('/barang',  \App\Http\Controllers\barangController::class);
+Route::resource('/barang',  \App\Http\Controllers\barangController::class)->middleware('auth');
 
 Route::get('/checkout', function () {
     return view('checkout.index');

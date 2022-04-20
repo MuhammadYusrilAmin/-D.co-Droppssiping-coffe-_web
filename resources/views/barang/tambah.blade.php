@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-2 form-label" for="basic-icon-default-message">jenis Barang</label>
+                        <label class="col-sm-2 form-label" for="basic-icon-default-message">Jenis Barang</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                                 <span id="basic-icon-default-message2 " class="input-group-text   @error('jenis_barang') error-icon @enderror "><i class='bx bx-package'></i></span>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-2 form-label" for="basic-icon-default-phone">foto</label>
+                        <label class="col-sm-2 form-label" for="basic-icon-default-phone">Foto</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                                 <input type="file" class="form-control phone-mask  @error('foto') is-invalid @enderror" name="foto" aria-describedby="basic-icon-default-phone2" />

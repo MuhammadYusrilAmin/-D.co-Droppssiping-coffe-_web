@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class userController extends Controller
 {
@@ -13,7 +15,8 @@ class userController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::latest()->paginate(5);
+        return view('user.index', compact('user'));
     }
 
     /**
@@ -23,7 +26,7 @@ class userController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.tambah');
     }
 
     /**
@@ -34,7 +37,34 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+            'max' => ':attribute maximal :max karakter',
+            'min' => ':attribute minimal :min karakter'
+        ];
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|min:8|string',
+            'id_akses' => 'required',
+        ],  $messages);
+
+        $user = User::create([
+            'name'       => $request->name,
+            'username'             => $request->username,
+            'email'  => $request->email,
+            'password'      => Hash::make($request->password),
+            'id_akses'              => $request->id_akses
+        ]);
+        if ($user) {
+            //redirect dengan pesan sukses
+            return redirect()->route('user.index')->with('success', 'Data User Berhasil Di Tambahkan');
+        } else {
+            //redirect dengan pesan error
+            return redirect()->route('user.index')->with('error', 'Data User Gagal Di Tambahkan');
+        }
     }
 
     /**
