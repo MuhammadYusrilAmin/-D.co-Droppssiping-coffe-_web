@@ -48,7 +48,7 @@
                 <ul class="menu-inner py-1" style="margin-top:20px;">
                     <!-- Dashboard -->
                     <li class="menu-item @yield('dashboard')">
-                        <a href="{{url('/dashboard')}}" class="menu-link">
+                        <a href="{{url('/home')}}" class="menu-link">
                             <i class="menu-icon tf-icon bx bxs-home"></i>
                             <div data-i18n="Analytics[0]">Dashboard</div>
                         </a>
@@ -64,13 +64,6 @@
                         <a href="{{url('/barang')}}" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-box"></i>
                             <div data-i18n="Analytics">Barang</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-item @yield('checkout')">
-                        <a href="{{url('/checkout')}}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-cart-add"></i>
-                            <div data-i18n="Analytics">Check out</div>
                         </a>
                     </li>
                     <li class="menu-item @yield('transaksi')">
@@ -96,12 +89,12 @@
 
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                         <!-- Search -->
-                        <div class="navbar-nav align-items-center">
+                        <!-- <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
                                 <i class="bx bx-search fs-4 lh-0"></i>
                                 <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." />
                             </div>
-                        </div>
+                        </div> -->
                         <!-- /Search -->
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">

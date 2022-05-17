@@ -53,10 +53,10 @@ class userController extends Controller
 
         $user = User::create([
             'name'       => $request->name,
-            'username'             => $request->username,
-            'email'  => $request->email,
-            'password'      => Hash::make($request->password),
-            'id_akses'              => $request->id_akses
+            'username'   => $request->username,
+            'email'      => $request->email,
+            'password'   => Hash::make($request->password),
+            'id_akses'   => $request->id_akses
         ]);
         if ($user) {
             //redirect dengan pesan sukses
@@ -86,7 +86,8 @@ class userController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -98,7 +99,26 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages = [
+            'required' => ':attribute tidak boleh kosong',
+            'max' => ':attribute maximal :max karakter',
+            'min' => ':attribute minimal :min karakter'
+        ];
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'id_akses' => 'required',
+        ],  $messages);
+
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->id_akses = $request->id_akses;
+        $user->update();
+        return redirect()->route('user.index')->with('success', 'Data User Berhasil Di Update');
     }
 
     /**
@@ -109,6 +129,8 @@ class userController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $barang = User::find($id);
+        $barang->delete();
+        return redirect()->route('user.index')->with('success', 'Data Barang Berhasil Di Hapus');
     }
 }

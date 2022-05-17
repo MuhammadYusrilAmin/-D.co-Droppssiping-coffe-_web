@@ -26,7 +26,7 @@
             <tbody class="table-border-bottom-0">
                 @foreach($barang as $key => $barang1)
                 <tr align="center">
-                    <td>{{$key+1}}</td>
+                    <td>{{$key + $barang->firstItem()}}</td>
                     <td>{{$barang1->nama_barang}}</td>
                     <td>{{$barang1->stok}}</td>
                     <td>{{$barang1->harga}}</td>
@@ -62,10 +62,10 @@
             </tbody>
         </table>
         <!-- Basic Pagination -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
+        <nav aria-label="Page navigation" style="margin-left: 20px;">
+            <ul class=" pagination">
                 <li class="page-item">
-                    <a class="page-link">{{ $barang->links() }}</a>
+                    {{ $barang->links() }}
                 </li>
             </ul>
         </nav>
@@ -100,4 +100,3 @@
         });
     }
 </script>
-@endsection

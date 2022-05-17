@@ -81,6 +81,16 @@
   display: block !important;
 }
 
+.header {
+  width: 100%;
+  height: 200px;
+  background-color: beige;
+}
+
+.cart {
+  font-size: 30px;
+  color: #566a7f;
+}
 /*
 * Layout demo
 ******************************************************************************/

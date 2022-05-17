@@ -14,23 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->middleware('auth');
-
-Route::get('/user', function () {
-    return view('user.index');
+    return view('landing_page/index');
 });
+
+Route::resource('/transaksi',  \App\Http\Controllers\transaksiController::class)->middleware('auth');
 
 Route::resource('/user',  \App\Http\Controllers\userController::class)->middleware('auth');
 
 Route::resource('/barang',  \App\Http\Controllers\barangController::class)->middleware('auth');
 
+Route::resource('/detail',  \App\Http\Controllers\detailController::class)->middleware('auth');
+
 Route::get('/checkout', function () {
     return view('checkout.index');
-});
-
-Route::get('/transaksi', function () {
-    return view('transaksi.index');
 });
 
 Auth::routes();

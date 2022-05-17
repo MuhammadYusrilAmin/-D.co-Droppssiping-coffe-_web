@@ -1,0 +1,67 @@
+@extends('layout.default')
+@section('title', 'Data transaksi')
+@section('transaksi', 'active')
+@section('content')
+
+<!-- Basic Bootstrap Table -->
+<div class="card">
+    <h4 class="card-header fw-bold py-3 mb-2 mt-2">Data Transaksi</h4>
+    <ul class="nav nav-pills flex-column flex-md-row mb-3 ms-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="{{route('transaksi.show', 1)}}">Di Packing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('transaksi.show', 2)}}">Di Kirim</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('transaksi.show', 3)}}">Di Terima</a>
+        </li>
+    </ul>
+    <div class="table-responsive text-nowrap">
+        <table class="table mb-2" style="font-size: 14px;">
+            <thead>
+                <tr align="center">
+                    <th>No.</th>
+                    <th>Tanggal</th>
+                    <th>Jenis Pembayaran</th>
+                    <th>Pengiriman</th>
+                    <th>Total Pembayaran</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach($transaksi as $key => $transaksi1)
+                <tr align="center">
+                    <td>{{$key + $transaksi->firstItem() }}</td>
+                    <td>{{$transaksi1->tanggal}}</td>
+                    <td>{{$transaksi1->jenis_pembayaran}}</td>
+                    <td>{{$transaksi1->jenis_pengiriman}}</td>
+                    <td>{{$transaksi1->total_pembayaran}}</td>
+                    <td><span class="badge bg-label-warning me-1">Di Packing</span></td>
+                    <td>
+                        <a href="{{route('detail.show', $transaksi1->id_transaksi)}}">
+                            <button type="button" class="btn btn-icon btn-warning"><i class="bx bx-detail me-1"></i></button>
+                        </a>
+                        <a href="{{route('transaksi.edit', $transaksi1->id_transaksi)}}">
+                            <button type="button" class="btn btn-icon btn-primary"><i class="bx bx-edit-alt me-1"></i></button>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <!-- Basic Pagination -->
+        <nav aria-label="Page navigation" style="margin-left: 20px;">
+            <ul class=" pagination">
+                <li class="page-item">
+                    {{ $transaksi->links() }}
+                </li>
+            </ul>
+        </nav>
+
+        <!--/ Basic Pagination -->
+    </div>
+</div>
+</div>
+@endsection

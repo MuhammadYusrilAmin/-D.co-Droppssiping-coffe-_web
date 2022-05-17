@@ -22,9 +22,9 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @foreach($user as $key => $user1)
+                @foreach($user as $index => $user1)
                 <tr align="center">
-                    <td>{{$key+1}}</td>
+                    <td>{{$index + $user->firstItem() }}</td>
                     <td>{{$user1->name}}</td>
                     <td>{{$user1->email}}</td>
                     <td>{{$user1->username}}</td>
@@ -35,10 +35,10 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{route('barang.edit',$user1->id)}}">
+                        <a href="{{route('user.edit',$user1->id)}}">
                             <button type="button" class="btn btn-icon btn-primary"><i class="bx bx-edit-alt me-1"></i></button>
                         </a>
-                        <a href="{{route('barang.destroy',$user1->id)}}" onclick="notificationforDelete(event, this)" class="btn btn-icon btn-danger"> <i class="bx bx-trash-alt"></i>
+                        <a href="{{route('user.destroy',$user1->id)}}" onclick="notificationforDelete(event, this)" class="btn btn-icon btn-danger"> <i class="bx bx-trash-alt"></i>
                         </a>
                     </td>
                 </tr>
@@ -46,10 +46,10 @@
             </tbody>
         </table>
         <!-- Basic Pagination -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
+        <nav aria-label="Page navigation" style="margin-left: 20px;">
+            <ul class=" pagination">
                 <li class="page-item">
-                    <a class="page-link">{{ $user->links() }}</a>
+                    {{ $user->links() }}
                 </li>
             </ul>
         </nav>
