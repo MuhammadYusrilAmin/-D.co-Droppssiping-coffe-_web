@@ -10,5 +10,15 @@ class transaksiModel extends Model
     use HasFactory;
     protected $table = 'transaksi';
     protected $primaryKey = 'id_transaksi';
-    protected $fillable = ['tanggal', 'total_pembayaran', 'jenis_pembayaran', 'status', 'biaya_pengiriman', 'jenis_pengiriman'];
+    protected $fillable = ['id_alamat', 'jenis_pembayaran', 'id_pengiriman', 'status', 'total_pembayaran'];
+
+    protected function alamat()
+    {
+        return $this->belongsTo(alamatModel::class, 'id_alamat', 'id_alamat');
+    }
+
+    protected function pengiriman()
+    {
+        return $this->belongsTo(pengirimanModel::class, 'id_pengiriman', 'id_pengiriman');
+    }
 }

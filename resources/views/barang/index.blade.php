@@ -18,7 +18,7 @@
                     <th>stok</th>
                     <th>Harga/pcs</th>
                     <th>Foto</th>
-                    <th>Jenis Barang</th>
+                    <th>Tags/th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -34,11 +34,11 @@
                         <img src="{{asset('assets/img/barang/'.$barang1->foto)}}" width="50px" height="50px" class="rounded-circle" />
                     </td>
                     <td>
-                        @if($barang1->jenis_barang == 1)
+                        @if($barang1->tags == 1)
                         Pupuk
-                        @elseif($barang1->jenis_barang == 2)
+                        @elseif($barang1->tags == 2)
                         Jajanan
-                        @elseif($barang1->jenis_barang == 3)
+                        @elseif($barang1->tags == 3)
                         Minuman Bubuk
                         @endif
                     </td>

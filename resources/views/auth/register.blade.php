@@ -18,11 +18,11 @@
             @csrf
 
             <div class=" input-group input-group-merge mb-3">
-                <label for="name" class="form-label">Nama Lengkap</label>
+                <label for="nama" class="form-label">Nama Lengkap</label>
                 <div class="input-group input-group-merge">
-                    <span id="basic-icon-default-namabarang2" class="input-group-text"><i class="bx bxs-user"></i></span>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" id="name" name="name" placeholder="Tegar Karunia" autofocus />
-                    @error('name')
+                    <span id="basic-icon-default-nama2" class="input-group-text @error('nama') error-icon @enderror"><i class="bx bxs-user"></i></span>
+                    <input type="text" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}" id="nama" name="nama" placeholder="Tegar Karunia" autofocus />
+                    @error('nama')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -32,7 +32,7 @@
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <div class="input-group input-group-merge">
-                    <span id="basic-icon-default-namabarang2" class="input-group-text"><i class="bx bxs-envelope"></i></span>
+                    <span class="input-group-text  @error('email') error-icon @enderror"><i class="bx bxs-envelope"></i></span>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="admin@example.com" autofocus />
                     @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -44,9 +44,25 @@
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <div class="input-group input-group-merge">
-                    <span id="basic-icon-default-namabarang2" class="input-group-text"><i class="bx bxs-user"></i></span>
+                    <span id="basic-icon-default-username2" class="input-group-text @error('username') error-icon @enderror"><i class="bx bxs-user"></i></span>
                     <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" value="{{ old('username') }}" name="username" placeholder="admin" autofocus />
                     @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="mb-3 form-password-toggle">
+                <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">No Telpon</label>
+                    <a href="auth-forgot-password-basic.html">
+                    </a>
+                </div>
+                <div class="input-group input-group-merge">
+                    <span id="basic-icon-default-no_telp2" class="input-group-text @error('no_telp') error-icon @enderror"><i class="bx bxs-phone"></i></span>
+                    <input type="number" id="no_telp" class="form-control @error('no_telp') is-invalid @enderror" value="{{ old('no_telp') }}" name="no_telp" placeholder="085xxxxxxxxx" aria-describedby="no_telp" />
+                    @error('no_telp')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -60,7 +76,7 @@
                     </a>
                 </div>
                 <div class="input-group input-group-merge">
-                    <span id="basic-icon-default-namabarang2" class="input-group-text"><i class="bx bxs-lock-alt"></i></span>
+                    <span class="input-group-text  @error('password') error-icon @enderror"><i class="bx bxs-lock-alt"></i></span>
                     <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                     @error('password')

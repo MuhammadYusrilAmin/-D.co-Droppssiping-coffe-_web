@@ -49,8 +49,8 @@ class barangController extends Controller
             'stok' => 'required',
             'harga' => 'required',
             'foto' => 'required|image|mimes:png,jpg,jpeg|max:2048',
-            'jenis_barang' => 'required',
-            'deskripsi_barang' => 'required'
+            'tags' => 'required',
+            'deskripsi' => 'required'
         ],  $messages);
 
         //upload image
@@ -64,10 +64,10 @@ class barangController extends Controller
         $barang = barangModel::create([
             'nama_barang'       => $request->nama_barang,
             'harga'             => $request->harga,
-            'deskripsi_barang'  => $request->deskripsi_barang,
-            'jenis_barang'      => $request->jenis_barang,
+            'foto'              => $new_image,
+            'deskripsi'         => $request->deskripsi,
+            'tags'              => $request->tags,
             'stok'              => $request->stok,
-            'foto'              => $new_image
         ]);
         if ($barang) {
             //redirect dengan pesan sukses
@@ -120,16 +120,16 @@ class barangController extends Controller
             'nama_barang' => 'required',
             'stok' => 'required',
             'harga' => 'required',
-            'jenis_barang' => 'required',
-            'deskripsi_barang' => 'required'
+            'tags' => 'required',
+            'deskripsi' => 'required'
         ],  $messages);
 
         $barang = barangModel::find($id);
         $barang->nama_barang = $request->nama_barang;
         $barang->stok = $request->stok;
         $barang->harga = $request->harga;
-        $barang->jenis_barang = $request->jenis_barang;
-        $barang->deskripsi_barang = $request->deskripsi_barang;
+        $barang->tags = $request->tags;
+        $barang->deskripsi = $request->deskripsi;
         if ($request->hasfile('foto')) {
             $destination = 'assets/img/barang/' . $barang->foto;
             if (File::exists($destination)) {

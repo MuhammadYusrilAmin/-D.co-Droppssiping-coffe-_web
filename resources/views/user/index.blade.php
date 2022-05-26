@@ -17,6 +17,7 @@
                     <th>Nama Lengkap</th>
                     <th>Email</th>
                     <th>Username</th>
+                    <th>No Telpon</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -25,9 +26,10 @@
                 @foreach($user as $index => $user1)
                 <tr align="center">
                     <td>{{$index + $user->firstItem() }}</td>
-                    <td>{{$user1->name}}</td>
+                    <td>{{$user1->nama}}</td>
                     <td>{{$user1->email}}</td>
                     <td>{{$user1->username}}</td>
+                    <td>{{$user1->no_telp}}</td>
                     <td>
                         @if($user1->id_akses == 1)
                         <span class="badge bg-label-primary me-1">Admin</span>

@@ -10,5 +10,10 @@ class barangModel extends Model
     use HasFactory;
     protected $table = 'barang';
     protected $primaryKey = 'id_barang';
-    protected $fillable = ['nama_barang', 'harga', 'deskripsi_barang', 'jenis_barang', 'status', 'stok', 'foto',];
+    protected $fillable = ['nama_barang', 'harga', 'deskripsi', 'tags', 'status', 'stok', 'foto'];
+
+    protected function checkout()
+    {
+        return $this->hasOne(checkoutModel::class, 'id_barang', 'id_barang');
+    }
 }

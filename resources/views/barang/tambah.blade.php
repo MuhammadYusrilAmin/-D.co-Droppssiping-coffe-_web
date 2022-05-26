@@ -52,18 +52,18 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label class="col-sm-2 form-label" for="basic-icon-default-message">Jenis Barang</label>
+                        <label class="col-sm-2 form-label" for="basic-icon-default-message">Tags</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                                <span id="basic-icon-default-message2 " class="input-group-text   @error('jenis_barang') error-icon @enderror "><i class='bx bx-package'></i></span>
-                                <select class="form-select   @error('jenis_barang') is-invalid @enderror" id="exampleFormControlSelect1" aria-label="Default select example" name="jenis_barang" value="{{old('jenis_barang')}}">
+                                <span id="basic-icon-default-message2 " class="input-group-text   @error('tags') error-icon @enderror "><i class='bx bx-package'></i></span>
+                                <select class="form-select   @error('tags') is-invalid @enderror" id="exampleFormControlSelect1" aria-label="Default select example" name="tags" value="{{old('tags')}}">
                                     <option value="">Pilih Jenis Barang</option>
                                     <option value="1">Pupuk</option>
                                     <option value="2">Jajanan</option>
                                     <option value="3">Minuman Bubuk</option>
                                 </select>
                             </div>
-                            @error('jenis_barang')
+                            @error('tags')
                             <p class="invalid-text">{{ $message }}</p>
                             @enderror
                         </div>
@@ -72,10 +72,10 @@
                         <label class="col-sm-2 form-label" for="basic-icon-default-deskripsi">Deskripsi Barang</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                                <span id="basic-icon-default-deskripsi2" class="input-group-text  @error('deskripsi_barang') error-icon @enderror"><i class="bx bx-task"></i></span>
-                                <textarea id="basic-icon-default-deskripsi" class="form-control  @error('deskripsi_barang') is-invalid @enderror" name="deskripsi_barang" value="{{old('deskripsi_barang')}}" placeholder="Deskripsi Barang" aria-label="Deskripsi Barang" aria-describedby="basic-icon-default-deskripsi2"></textarea>
+                                <span id="basic-icon-default-deskripsi2" class="input-group-text  @error('deskripsi') error-icon @enderror"><i class="bx bx-task"></i></span>
+                                <textarea id="basic-icon-default-deskripsi" class="form-control  @error('deskripsi') is-invalid @enderror" name="deskripsi" value="{{old('deskripsi')}}" placeholder="Deskripsi Barang" aria-label="Deskripsi Barang" aria-describedby="basic-icon-default-deskripsi2"></textarea>
                             </div>
-                            @error('deskripsi_barang')
+                            @error('deskripsi')
                             <p class="invalid-text">{{ $message }}</p>
                             @enderror
                         </div>

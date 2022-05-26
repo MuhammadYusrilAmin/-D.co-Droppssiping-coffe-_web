@@ -13,14 +13,14 @@
                     @csrf
                     @method('PUT')
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-name">Nama Lengkap</label>
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-nama">Nama Lengkap</label>
                         <div class="col-sm-10 ">
                             <div class="input-group input-group-merge">
-                                <span id="basic-icon-default-name2" class="input-group-text @error('name') error-icon @enderror"><i class="bx bxs-user"></i></span>
-                                <input type="text" class="form-control @error('name') is-invalid  @enderror" id="basic-icon-default-name" value="{{$user->name}}" placeholder="Tegar Karunia" name="name" value="{{old('name')}}" aria-describedby="basic-icon-default-name2" />
+                                <span id="basic-icon-default-nama2" class="input-group-text @error('nama') error-icon @enderror"><i class="bx bxs-user"></i></span>
+                                <input type="text" class="form-control @error('nama') is-invalid  @enderror" id="basic-icon-default-nama" value="{{$user->nama}}" placeholder="Tegar Karunia" name="nama" value="{{old('nama')}}" aria-describedby="basic-icon-default-nama2" />
 
                             </div>
-                            @error('name')
+                            @error('nama')
                             <p class="invalid-text">{{ $message }}</p>
                             @enderror
                         </div>
@@ -48,6 +48,19 @@
                                 <input type="text" id="basic-icon-default-username" class="form-control @error('username') is-invalid @enderror" value="{{$user->username}}" placeholder="admin" aria-label="admin" name="username" value="{{old('username')}}" aria-describedby="basic-icon-default-username2" />
                             </div>
                             @error('username')
+                            <p class="invalid-text">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-no_telp">No Telpon</label>
+                        <div class="col-sm-10 ">
+                            <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-no_telp2" class="input-group-text @error('no_telp') error-icon @enderror"><i class="bx bxs-phone"></i></span>
+                                <input type="text" class="form-control @error('no_telp') is-invalid  @enderror" id="basic-icon-default-name" value="{{$user->no_telp}}" placeholder="085xxxxxxxxx" name="no_telp" value="{{old('no_telp')}}" aria-describedby="basic-icon-default-no_telp2" />
+
+                            </div>
+                            @error('no_telp')
                             <p class="invalid-text">{{ $message }}</p>
                             @enderror
                         </div>

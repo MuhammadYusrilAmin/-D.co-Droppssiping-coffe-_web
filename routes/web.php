@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\userControl;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,12 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/', function () {
     return view('landing_page/index');
 });
 
 Route::resource('/transaksi',  \App\Http\Controllers\transaksiController::class)->middleware('auth');
 
-Route::resource('/user',  \App\Http\Controllers\userController::class)->middleware('auth');
+Route::resource('/user',  \App\Http\Controllers\userControl::class)->middleware('auth');
 
 Route::resource('/barang',  \App\Http\Controllers\barangController::class)->middleware('auth');
 
@@ -31,4 +36,14 @@ Route::get('/checkout', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified'
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });

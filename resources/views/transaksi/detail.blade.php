@@ -36,9 +36,8 @@
                         <span class="badge bg-label-warning me-1">Di Packing</span>
                         @elseif($transaksi1->status == 2)
                         <span class="badge bg-label-primary me-1">Di Kirim</span>
-                        @elseif($transaksi1->status == 3)
+                        @elseif($transaksi1->status == 3 )
                         <span class="badge bg-label-success me-1">Di Terima</span>
-
                         @endif
                     </td>
                 </tr>
