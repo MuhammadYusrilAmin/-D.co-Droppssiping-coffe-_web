@@ -11,7 +11,12 @@
                 <tr>
                     <td style="width: 15%;">Nama Customer</td>
                     <td style="width: 3%;">:</td>
-                    <td>{{$transaksi1->id}}</td>
+                    <?php
+                    $user = App\Models\User::where('id', $transaksi1->users_id)->get();
+                    ?>
+                    @foreach($user as $key => $user1)
+                    <td>{{$user1->nama}}</td>
+                    @endforeach
                 </tr>
                 <tr>
                     <td>Tanggal</td>
@@ -21,12 +26,12 @@
                 <tr>
                     <td>Total Pembayaran</td>
                     <td>:</td>
-                    <td>{{$transaksi1->total_pembayaran}}</td>
+                    <td>{{$transaksi1->total_harga}}</td>
                 </tr>
                 <tr>
-                    <td>Jenis Pengiriman</td>
+                    <td>Jenis Pembayaran</td>
                     <td>:</td>
-                    <td>{{$transaksi1->jenis_pengiriman}}</td>
+                    <td>{{$transaksi1->payment}}</td>
                 </tr>
                 <tr>
                     <td>Status Pengiriman</td>
@@ -42,19 +47,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Alamat Pengeriman</td>
+                    <td>Alamat Pengiriman</td>
                     <td>:</td>
                     <td style="margin:50px">{{$transaksi1->alamat}}</td>
                 </tr>
             </tbody>
             @endforeach
         </table>
-        <a href="{{route('transaksi.edit', $transaksi1->id_transaksi)}}">
+        <a href="{{route('transaksi.edit', $transaksi1->id)}}">
             <button type="button" class="btn btn-primary ms-4">
                 <span class="tf-icons bx bx-edit"></span>&nbsp; Ganti Status
             </button>
         </a>
-        <a href="{{route('detail.show', $transaksi1->id_transaksi)}}">
+        <a href="{{route('detail.show', $transaksi1->id)}}">
             <button type="button" class="btn btn-success">
                 <span class="tf-icons bx bx-printer"></span>&nbsp; Cetak Pesanan
             </button>
@@ -65,11 +70,9 @@
                 <thead>
                     <tr align="center">
                         <th>No.</th>
-                        <th>Tanggal</th>
-                        <th>Jenis Pembayaran</th>
-                        <th>Pengiriman</th>
-                        <th>Total Pembayaran</th>
-                        <th>Status</th>
+                        <th>Foto Products</th>
+                        <th>Nama Produk</th>
+                        <th>Jumlah</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -77,19 +80,21 @@
                     @foreach($detail as $key => $detail1)
                     <tr align="center">
                         <td>{{$key+ $detail->firstItem() }}</td>
+                        <?php
+                        $gallery = App\Models\ProductGallery::where('products_id', $detail1->products_id)->get();
+                        ?>
                         <td>
-                            <img src="{{asset('assets/img/barang/'.$detail1->foto_barang)}}" width="50px" height="50px" class="rounded-circle" />
+                            <img src="{{$gallery[0]->url}}" width="70px" height="70px" />
                         </td>
-                        <td>{{$detail->nama_barang}}</td>
-                        <td>{{$detail->harga}}</td>
-                        <td>{{$detail->jumlah}}</td>
-                        <td>{{$detail->total_harga}}</td>
+                        <?php
+                        $produk = App\Models\productModel::where('id', $detail1->products_id)->get();
+                        ?>
+                        @foreach($produk as $key => $produk1)
+                        <td>{{$produk1->name}}</td>
+                        @endforeach
+                        <td>{{$detail1->jumlah}}</td>
                         <td>
-                            <a href="{{route('detail.show', $transaksi1->id_transaksi)}}">
-                                <button type="button" class="btn btn-icon btn-warning"><i class="bx bx-detail me-1"></i></button>
-                            </a>
-                            <a href="{{route('transaksi.edit', $transaksi1->id_transaksi)}}">
-                                <button type="button" class="btn btn-icon btn-primary"><i class="bx bx-edit-alt me-1"></i></button>
+                            <a href="{{url('detail/destroy?id='.$detail1->id.'&id_barang='.$detail1->transaksi_id)}}" onclick="notificationforDelete(event, this)" class="btn btn-icon btn-danger"> <i class="bx bx-trash-alt"></i>
                             </a>
                         </td>
                     </tr>
@@ -109,3 +114,27 @@
     </div>
 </div>
 @endsection
+<form action="" id="delete-form" method="POST">
+    @method('delete')
+    @csrf
+</form>
+<script>
+    function notificationforDelete(event, el) {
+        event.preventDefault();
+        swal.fire({
+            title: "Apakah Anda Yakin Menghapus Data Ini?",
+            icon: "warning",
+            closeOnClickOutside: false,
+            showCancelButton: true,
+            confirmButtonText: 'Iya',
+            confirmButtonColor: '#6777ef',
+            cancelButtonText: 'Batal',
+            cancelButtonColor: '#d33',
+        }).then((result) => {
+            if (result.value) {
+                $("#delete-form").attr('action', $(el).attr('href'));
+                $("#delete-form").submit();
+            }
+        });
+    }
+</script>

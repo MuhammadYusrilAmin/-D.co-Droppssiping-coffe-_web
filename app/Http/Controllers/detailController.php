@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\transaksiModel;
 use App\Models\detailModel;
+use App\Models\TransaksiItem;
 
 class detailController extends Controller
 {
@@ -47,8 +48,8 @@ class detailController extends Controller
      */
     public function show($id)
     {
-        $transaksi = transaksiModel::where('id_transaksi', $id)->get();
-        $detail = detailModel::where('id_transaksi', $id)->paginate(5);
+        $transaksi = transaksiModel::where('id', $id)->get();
+        $detail = TransaksiItem::where('transaksi_id', $id)->paginate(99);
         return view('transaksi.detail ', compact('detail', 'transaksi'));
     }
 
@@ -83,6 +84,10 @@ class detailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id_barang = $_GET['id_barang'];
+        $id_detail = $_GET['id'];
+        $detail = TransaksiItem::where('id', $id_detail);
+        $detail->delete();
+        return redirect()->route('detail.show', $id_barang)->with('success', 'Produk Berhasil Di Hapus');;
     }
 }

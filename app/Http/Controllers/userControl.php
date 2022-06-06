@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class userControl extends Controller
 {
@@ -79,7 +80,8 @@ class userControl extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('auth.updateProfile', compact('user'));
     }
 
     /**
@@ -124,7 +126,11 @@ class userControl extends Controller
         $user->no_telp = $request->no_telp;
         $user->id_akses = $request->id_akses;
         $user->update();
-        return redirect()->route('user.index')->with('success', 'Data User Berhasil Di Update');
+        if ($user->id == Auth::user()->id) {
+            return redirect()->route('user.show', Auth::user()->id)->with('success', 'Data User Berhasil Di Update');
+        } else {
+            return redirect()->route('user.index')->with('success', 'Data User Berhasil Di Update');
+        }
     }
 
     /**

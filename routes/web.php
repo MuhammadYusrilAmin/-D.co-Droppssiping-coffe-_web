@@ -15,11 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/', function () {
-    return view('landing_page/index');
+    return view('landing_page/landing');
 });
 
 Route::resource('/transaksi',  \App\Http\Controllers\transaksiController::class)->middleware('auth');
@@ -27,6 +23,10 @@ Route::resource('/transaksi',  \App\Http\Controllers\transaksiController::class)
 Route::resource('/user',  \App\Http\Controllers\userControl::class)->middleware('auth');
 
 Route::resource('/barang',  \App\Http\Controllers\barangController::class)->middleware('auth');
+
+Route::resource('/productCategories',  \App\Http\Controllers\productCategories::class)->middleware('auth');
+
+Route::resource('/productGalleries',  \App\Http\Controllers\productGalleries::class)->middleware('auth');
 
 Route::resource('/detail',  \App\Http\Controllers\detailController::class)->middleware('auth');
 
@@ -36,7 +36,7 @@ Route::get('/checkout', function () {
 
 Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::middleware([
 //     'auth:sanctum',

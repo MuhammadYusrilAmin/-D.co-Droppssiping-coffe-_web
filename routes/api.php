@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\API\barangController;
+use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ProductCategoryController;
 use App\Http\Controllers\API\transaksiController;
 use App\Http\Controllers\API\userController;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('apiProduk', [barangController::class, 'getAll']);
+Route::get('products', [ProductController::class, 'all']);
+Route::get('categories', [ProductCategoryController::class, 'all']);
 
 Route::post('register', [userController::class, 'register']);
 Route::post('login', [userController::class, 'login']);
@@ -28,4 +30,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [userController::class, 'logout']);
 
     Route::get('transactions', [transaksiController::class, 'all']);
+    Route::post('checkout', [transaksiController::class, 'checkout']);
 });

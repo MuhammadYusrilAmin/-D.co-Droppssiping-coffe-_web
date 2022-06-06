@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\barangModel;
-use Illuminate\Support\Facades\File;
+use App\Models\productModel;
+use App\Models\productCategory;
+use App\Models\ProductGallery;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class barangController extends Controller
@@ -16,8 +18,9 @@ class barangController extends Controller
      */
     public function index()
     {
-        $barang = barangModel::latest()->paginate(5);
-        return view('barang.index', compact('barang'));
+        $product =  ProductModel::latest()->paginate(5);
+        $category = ProductCategory::all();
+        return view('barang.index', compact('product', 'category'));
     }
 
     /**
@@ -27,7 +30,8 @@ class barangController extends Controller
      */
     public function create()
     {
-        return view('barang.tambah');
+        $category = ProductCategory::all();
+        return view('barang.tambah', compact('category'));
     }
 
     /**
@@ -45,33 +49,28 @@ class barangController extends Controller
         ];
 
         $request->validate([
-            'nama_barang' => 'required',
+            'name' => 'required',
             'stok' => 'required',
             'harga' => 'required',
-            'foto' => 'required|image|mimes:png,jpg,jpeg|max:2048',
             'tags' => 'required',
-            'deskripsi' => 'required'
+            'deskripsi' => 'required',
+            'categories_id' => 'required'
         ],  $messages);
 
+        $id = rand();
         //upload image
-        if ($request->hasFile('foto')) {
-            $image = $request->file('foto');
-            $new_image = rand() . '.' . $image->getClientOriginalExtension();
-
-            $image->move(public_path('assets/img/barang'), $new_image);
-        }
-
-        $barang = barangModel::create([
-            'nama_barang'       => $request->nama_barang,
+        $product = productModel::create([
+            'id'                => $id,
+            'name'              => $request->name,
             'harga'             => $request->harga,
-            'foto'              => $new_image,
             'deskripsi'         => $request->deskripsi,
             'tags'              => $request->tags,
             'stok'              => $request->stok,
+            'categories_id'     => $request->categories_id,
         ]);
-        if ($barang) {
-            //redirect dengan pesan sukses
-            return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil Di Tambahkan');
+        if ($product) {
+            //redirect dengan pesan sukses      
+            return redirect('productGalleries/create?id=' . $id);
         } else {
             //redirect dengan pesan error
             return redirect()->route('barang.index')->with('error', 'Data Barang Gagal Di Tambahkan');
@@ -97,8 +96,9 @@ class barangController extends Controller
      */
     public function edit($id)
     {
-        $barang = barangModel::find($id);
-        return view('barang.edit', compact('barang'));
+        $category = ProductCategory::all();
+        $product = productModel::find($id);
+        return view('barang.edit', compact('product', 'category'));
     }
 
     /**
@@ -117,30 +117,22 @@ class barangController extends Controller
         ];
 
         $request->validate([
-            'nama_barang' => 'required',
+            'name' => 'required',
             'stok' => 'required',
             'harga' => 'required',
             'tags' => 'required',
-            'deskripsi' => 'required'
+            'deskripsi' => 'required',
+            'categories_id' => 'required'
         ],  $messages);
 
-        $barang = barangModel::find($id);
-        $barang->nama_barang = $request->nama_barang;
-        $barang->stok = $request->stok;
-        $barang->harga = $request->harga;
-        $barang->tags = $request->tags;
-        $barang->deskripsi = $request->deskripsi;
-        if ($request->hasfile('foto')) {
-            $destination = 'assets/img/barang/' . $barang->foto;
-            if (File::exists($destination)) {
-                File::delete($destination);
-            }
-            $image = $request->file('foto');
-            $file_image = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('assets/img/barang'), $file_image);
-            $barang->foto = $file_image;
-        }
-        $barang->update();
+        $product = productModel::find($id);
+        $product->name = $request->name;
+        $product->stok = $request->stok;
+        $product->harga = $request->harga;
+        $product->tags = $request->tags;
+        $product->deskripsi = $request->deskripsi;
+        $product->categories_id = $request->categories_id;
+        $product->update();
         return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil Di Update');
     }
 
@@ -152,12 +144,10 @@ class barangController extends Controller
      */
     public function destroy($id)
     {
-        $barang = barangModel::find($id);
-        $location = 'assets/img/barang/' . $barang->foto;
-        if (File::exists($location)) {
-            File::delete($location);
-        }
-        $barang->delete();
+        $product = productModel::find($id);
+        $gallery = ProductGallery::where('products_id', $id);
+        $gallery->delete();
+        $product->delete();
         return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil Di Hapus');;
     }
 }

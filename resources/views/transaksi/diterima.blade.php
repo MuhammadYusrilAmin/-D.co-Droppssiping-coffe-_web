@@ -22,9 +22,9 @@
             <thead>
                 <tr align="center">
                     <th>No.</th>
-                    <th>Tanggal</th>
+                    <th>Nama</th>
+                    <th>Tanggal Pembayaran</th>
                     <th>Jenis Pembayaran</th>
-                    <th>Pengiriman</th>
                     <th>Total Pembayaran</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -33,17 +33,22 @@
             <tbody class="table-border-bottom-0">
                 @foreach($transaksi as $key => $transaksi1)
                 <tr align="center">
-                    <td>{{$key+ $transaksi->firstItem()}}</td>
+                    <td>{{$key+ $transaksi->firstItem() }}</td>
+                    <?php
+                    $user = App\Models\User::where('id', $transaksi1->users_id)->get();
+                    ?>
+                    @foreach($user as $key => $user1)
+                    <td>{{$user1->nama}}</td>
+                    @endforeach
                     <td>{{$transaksi1->tanggal}}</td>
-                    <td>{{$transaksi1->jenis_pembayaran}}</td>
-                    <td>{{$transaksi1->jenis_pengiriman}}</td>
-                    <td>{{$transaksi1->total_pembayaran}}</td>
+                    <td>{{$transaksi1->payment}}</td>
+                    <td>{{$transaksi1->biaya_pengiriman}}</td>
                     <td><span class="badge bg-label-success me-1">Di Terima</span></td>
                     <td>
-                        <a href="{{route('detail.show', $transaksi1->id_transaksi)}}">
+                        <a href="{{route('detail.show', $transaksi1->id)}}">
                             <button type="button" class="btn btn-icon btn-warning"><i class="bx bx-detail me-1"></i></button>
                         </a>
-                        <a href="{{route('transaksi.edit', $transaksi1->id_transaksi)}}">
+                        <a href="{{route('transaksi.edit', $transaksi1->id)}}">
                             <button type="button" class="btn btn-icon btn-primary"><i class="bx bx-edit-alt me-1"></i></button>
                         </a>
                     </td>

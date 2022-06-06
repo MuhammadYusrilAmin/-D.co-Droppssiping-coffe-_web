@@ -17,44 +17,53 @@
                     <th>Nama Barang</th>
                     <th>stok</th>
                     <th>Harga/pcs</th>
-                    <th>Foto</th>
-                    <th>Tags/th>
+                    <th>Tags</th>
+                    <th>Kategori</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @foreach($barang as $key => $barang1)
+                @foreach($product as $key => $product1)
                 <tr align="center">
-                    <td>{{$key + $barang->firstItem()}}</td>
-                    <td>{{$barang1->nama_barang}}</td>
-                    <td>{{$barang1->stok}}</td>
-                    <td>{{$barang1->harga}}</td>
-                    <td style="width: 10%;">
-                        <img src="{{asset('assets/img/barang/'.$barang1->foto)}}" width="50px" height="50px" class="rounded-circle" />
-                    </td>
+                    <td>{{$key + $product->firstItem()}}</td>
+                    <td>{{$product1->name}}</td>
+                    <td>{{$product1->stok}}</td>
+                    <td>{{$product1->harga}}</td>
+                    @if($product1->tags == 1)
+                    <td>Kopi</td>
+                    @elseif($product1->tags == 2)
+                    <td>Kopi Bubuk</td>
+                    @elseif($product1->tags == 3)
+                    <td>Biji Kopi</td>
+                    @elseif($product1->tags == 4)
+                    <td>Kopi Arabica</td>
+                    @elseif($product1->tags == 5)
+                    <td>Kopi Robusta</td>>
+                    @endif
                     <td>
-                        @if($barang1->tags == 1)
-                        Pupuk
-                        @elseif($barang1->tags == 2)
-                        Jajanan
-                        @elseif($barang1->tags == 3)
-                        Minuman Bubuk
+                        @foreach($category as $key => $category1)
+                        @if($category1->id == $product1->categories_id)
+                        {{$category1->name}}
                         @endif
+                        @endforeach
                     </td>
                     <td>
-                        @if($barang1->stok == 0)
+                        @if($product1->stok == 0)
                         <span class="badge bg-label-danger me-1">Stok Kosong</span>
-                        @elseif($barang1->stok <= 20) <span class="badge bg-label-warning me-1">Stok Terbatas</span>
-                            @elseif($barang1->stok >= 21)
+                        @elseif($product1->stok <= 20) <span class="badge bg-label-warning me-1">Stok Terbatas</span>
+                            @elseif($product1->stok >= 21)
                             <span class="badge bg-label-success me-1">Stok Tersedia</span>
                             @endif
                     </td>
                     <td>
-                        <a href="{{route('barang.edit',$barang1->id_barang)}}">
+                        <a href="{{url('productGalleries'.'?id='. $product1->id)}}">
+                            <button type="button" class="btn btn-icon btn-warning"><i class="bx bx-detail me-1"></i></button>
+                        </a>
+                        <a href="{{route('barang.edit',$product1->id)}}">
                             <button type="button" class="btn btn-icon btn-primary"><i class="bx bx-edit-alt me-1"></i></button>
                         </a>
-                        <a href="{{route('barang.destroy',$barang1->id_barang)}}" onclick="notificationforDelete(event, this)" class="btn btn-icon btn-danger"> <i class="bx bx-trash-alt"></i>
+                        <a href="{{route('barang.destroy',$product1->id)}}" onclick="notificationforDelete(event, this)" class="btn btn-icon btn-danger"> <i class="bx bx-trash-alt"></i>
                         </a>
                     </td>
                 </tr>
@@ -65,7 +74,7 @@
         <nav aria-label="Page navigation" style="margin-left: 20px;">
             <ul class=" pagination">
                 <li class="page-item">
-                    {{ $barang->links() }}
+                    {{ $product->links() }}
                 </li>
             </ul>
         </nav>

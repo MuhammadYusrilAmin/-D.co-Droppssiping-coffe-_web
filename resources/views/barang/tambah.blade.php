@@ -9,18 +9,17 @@
                 <h4 class="mb-3 fw-bold">Tambah Data Barang</h4>
             </div>
             <div class="card-body">
-                <form action="{{route('barang.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('barang.store')}}" method="POST">
                     @csrf
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-namabarang">Nama Barang</label>
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-name">Nama Barang</label>
                         <div class="col-sm-10 ">
                             <div class="input-group input-group-merge">
-                                <span id="basic-icon-default-namabarang2" class="input-group-text @error('nama_barang') error-icon @enderror"><i class="bx bx-box"></i></span>
-                                <input type="text" class="form-control @error('nama_barang') is-invalid  @enderror" id="basic-icon-default-namabarang" placeholder="Kopi Bubuk" aria-label="Kopi Bubuk" name="nama_barang" value="{{old('nama_barang')}}" aria-describedby="basic-icon-default-namabarang2" />
-
+                                <span id="basic-icon-default-name2" class="input-group-text @error('name') error-icon @enderror"><i class="bx bx-box"></i></span>
+                                <input type="text" class="form-control @error('name') is-invalid  @enderror" id="basic-icon-default-name" placeholder="Kopi Bubuk" aria-label="Kopi Bubuk" name="name" value="{{old('name')}}" aria-describedby="basic-icon-default-name2" />
                             </div>
-                            @error('nama_barang')
-                            <p class="invalid-text">{{ $message }}</p>
+                            @error('name')
+                            <p class="invalid-text">nama barang tidak boleh kosong</p>
                             @enderror
                         </div>
                     </div>
@@ -57,13 +56,33 @@
                             <div class="input-group input-group-merge">
                                 <span id="basic-icon-default-message2 " class="input-group-text   @error('tags') error-icon @enderror "><i class='bx bx-package'></i></span>
                                 <select class="form-select   @error('tags') is-invalid @enderror" id="exampleFormControlSelect1" aria-label="Default select example" name="tags" value="{{old('tags')}}">
-                                    <option value="">Pilih Jenis Barang</option>
-                                    <option value="1">Pupuk</option>
-                                    <option value="2">Jajanan</option>
-                                    <option value="3">Minuman Bubuk</option>
+                                    <option value="">Pilih Tags Barang</option>
+                                    <option value="1">Kopi</option>
+                                    <option value="2">Kopi Bubuk</option>
+                                    <option value="3">Biji Kopi</option>
+                                    <option value="4">Kopi Arabica</option>
+                                    <option value="5">Kopi Robusta</option>
                                 </select>
                             </div>
                             @error('tags')
+                            <p class="invalid-text">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 form-label" for="basic-icon-default-message">Kategori Barang</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <span id="basic-icon-default-message2 " class="input-group-text   @error('categories_id') error-icon @enderror "><i class='bx bx-package'></i></span>
+                                <select class="form-select   @error('categories_id') is-invalid @enderror" id="exampleFormControlSelect1" aria-label="Default select example" name="categories_id" value="{{old('categories_id')}}">
+                                    <option value="">Pilih Kategori Barang</option>
+                                    @foreach($category as $key => $category1)
+                                    <option value="{{$category1->id}}">{{$category1->name}}</option>
+                                    @endforeach
+                                </select>
+                                <a href="{{url('/productCategories')}}" class="btn btn-primary">Tambah Jenis Barang</a>
+                            </div>
+                            @error('categories_id')
                             <p class="invalid-text">{{ $message }}</p>
                             @enderror
                         </div>
@@ -76,17 +95,6 @@
                                 <textarea id="basic-icon-default-deskripsi" class="form-control  @error('deskripsi') is-invalid @enderror" name="deskripsi" value="{{old('deskripsi')}}" placeholder="Deskripsi Barang" aria-label="Deskripsi Barang" aria-describedby="basic-icon-default-deskripsi2"></textarea>
                             </div>
                             @error('deskripsi')
-                            <p class="invalid-text">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 form-label" for="basic-icon-default-phone">Foto</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <input type="file" class="form-control phone-mask  @error('foto') is-invalid @enderror" name="foto" aria-describedby="basic-icon-default-phone2" />
-                            </div>
-                            @error('foto')
                             <p class="invalid-text">{{ $message }}</p>
                             @enderror
                         </div>
