@@ -54,7 +54,14 @@
             </tbody>
             @endforeach
         </table>
-        <a href="{{route('transaksi.edit', $transaksi1->id)}}">
+        @if($transaksi1->status == 3)
+        <a href="{{url('/cetak_detail', $transaksi1->id)}}">
+            <button type="button" class="btn btn-success ms-4">
+                <span class="tf-icons bx bx-printer"></span>&nbsp; Cetak Pesanan
+            </button>
+        </a>
+        @else
+        <a href="{{url('/cetak_detail', $transaksi1->id)}}">
             <button type="button" class="btn btn-primary ms-4">
                 <span class="tf-icons bx bx-edit"></span>&nbsp; Ganti Status
             </button>
@@ -64,6 +71,7 @@
                 <span class="tf-icons bx bx-printer"></span>&nbsp; Cetak Pesanan
             </button>
         </a>
+        @endif
         <!-- Basic Pagination -->
         <div class="table-responsive text-nowrap">
             <table class="table mb-2 mt-2" style="font-size: 14px;">
@@ -100,6 +108,7 @@
                     </tr>
                     @endforeach
                 </tbody>
+            </table>
             </table>
             <nav aria-label="Page navigation" style="margin-left: 20px;">
                 <ul class=" pagination">

@@ -6,9 +6,29 @@
 <!-- Basic Bootstrap Table -->
 <div class="card">
     <h4 class="card-header fw-bold py-3 mb-2 mt-2">Data Barang</h4>
-    <a href="{{route('barang.create')}}">
-        <button type="button" class="btn btn-success ms-4 mb-3" style="background-color: #02C80A;"><i class='bx bx-plus-circle'></i> Tambah</button>
-    </a>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{route('barang.create')}}">
+                <button type="button" class="btn btn-success ms-4 mb-3" style="background-color: #02C80A;"><i class='bx bx-plus-circle'></i> Tambah</button>
+            </a>
+            <a href="{{url('/cetak_barang')}}">
+                <button type="button" class="btn btn-primary mb-3">
+                    <span class="tf-icons bx bx-printer"></span>&nbsp; Cetak Pesanan
+                </button>
+            </a>
+        </div>
+        <div class="col-md-6">
+            <form action="{{url('/barang/search')}}" method="POST" style="float: right; margin-right:2rem;">
+                <div class="col-sm-12">
+                    <div class="input-group input-group-merge">
+                        <span class="input-group-text"><i class='bx bx-search'></i></span>
+                        <input type="text" id="basic-icon-default-harga" class="form-control" placeholder="Cari Barang" name="nama_barang" aria-label="12000" aria-describedby="basic-icon-default-harga2" />
+                        <button type="submit" class="btn btn-icon btn-primary"><i class='bx bx-search'></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="table-responsive text-nowrap">
         <table class="table mb-2">
             <thead>
@@ -39,7 +59,7 @@
                     @elseif($product1->tags == 4)
                     <td>Kopi Arabica</td>
                     @elseif($product1->tags == 5)
-                    <td>Kopi Robusta</td>>
+                    <td>Kopi Robusta</td>
                     @endif
                     <td>
                         @foreach($category as $key => $category1)

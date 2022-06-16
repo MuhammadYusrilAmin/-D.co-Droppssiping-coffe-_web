@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\productModel;
-use App\Models\productCategory;
+use App\Models\ProductCategory;
 use App\Models\ProductGallery;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class barangController extends Controller
 {
@@ -22,7 +23,27 @@ class barangController extends Controller
         $category = ProductCategory::all();
         return view('barang.index', compact('product', 'category'));
     }
-
+    
+    public function search()
+    {
+        $barang = $_POST['nama_barang'];
+        $product =  ProductModel::where('name', 'like', '%' . $barang . '%')->paginate(20);
+        $category = ProductCategory::all();
+        if ($barang == null) {
+            return redirect()->route('barang.index');
+        } else {
+            return view('barang.index', compact('product', 'category'));
+        }
+    }
+    
+     public function cetak_pdf()
+    {
+        $product =  ProductModel::latest()->get();
+        $category = ProductCategory::all();
+        $date = date('d-m-Y');
+        $pdf = PDF::loadview('barang.laporan_pdf', compact('product', 'category'));
+        return $pdf->download('laporan-barang_'.$date.'.pdf');
+    }
     /**
      * Show the form for creating a new resource.
      *

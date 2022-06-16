@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\userController;
+use App\Http\Controllers\barangController;
+use App\Http\Controllers\transaksiController;
+use App\Http\Controllers\detailController;
 use App\Http\Controllers\userControl;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +38,18 @@ Route::get('/checkout', function () {
     return view('checkout.index');
 });
 
+Route::post('/barang/search', [barangController::class, 'search']);
+Route::post('/user/search', [userControl::class, 'search']);
+Route::post('/transaksi/search', [transaksiController::class, 'search']);
+
+Route::get('/cetak_user', [userControl::class, 'cetak_pdf']);
+Route::get('/cetak_barang', [barangController::class, 'cetak_pdf']);
+Route::get('/cetak_transaksi', [transaksiController::class, 'cetak_pdf']);
+Route::get('/cetak_detail/{id}', [detailController::class, 'cetak_pdf']);
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::middleware([
 //     'auth:sanctum',

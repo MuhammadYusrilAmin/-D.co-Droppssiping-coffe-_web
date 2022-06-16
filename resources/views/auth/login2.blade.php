@@ -4,16 +4,24 @@
 <div class="card">
     <div class="card-body">
         <!-- Logo -->
-        @if(session('error'))
+        <a href="{{ route('logout') }}"></a>
+        <form action="{{ route('logout') }}" id="logout" method="POST">
+            @csrf
+        </form>
         <script>
-            Swal.fire({
-                icon: 'error',
-                title: '{{session("error")}}',
-                showConfirmButton: false,
-                timer: 1500
-            })
+            swal.fire({
+                title: "Fitur Ini Hanya Untuk Admin!!",
+                icon: "error",
+                closeOnClickOutside: false,
+                showCancelButton: false,
+                confirmButtonText: 'oke',
+                confirmButtonColor: '#6777ef',
+            }).then((result) => {
+                if (result.value) {
+                    $("#logout").submit();
+                }
+            });
         </script>
-        @endif
         <div class="app-brand left-content-center" style="height:12vh; width:50%; margin-left:25%; ">
             <a href="index.html" class="app-brand-link gap-2">
                 <span class="app-brand-logo demo">

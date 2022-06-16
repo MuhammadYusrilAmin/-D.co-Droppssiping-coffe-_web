@@ -8,7 +8,8 @@
 
     <meta name="description" content="" />
 
-    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/icon.png')}}" />
+    
+    <link href="{{asset('assets/landing/img/logo.png')}}" rel="icon">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/css/pages/page-auth.css')}}" />
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
     <script src="{{asset('assets/js/config.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>

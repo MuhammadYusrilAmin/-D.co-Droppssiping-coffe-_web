@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\transaksiModel;
 use App\Models\detailModel;
+use App\Models\ProductGallery;
+use App\Models\productModel;
 use App\Models\TransaksiItem;
+use PDF;
 
 class detailController extends Controller
 {
@@ -46,7 +49,7 @@ class detailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+     public function show($id)
     {
         $transaksi = transaksiModel::where('id', $id)->get();
         $detail = TransaksiItem::where('transaksi_id', $id)->paginate(99);
@@ -63,7 +66,16 @@ class detailController extends Controller
     {
         //
     }
-
+    
+    public function cetak_pdf($id)
+    {
+        $transaksi = transaksiModel::where('id', $id)->get();
+        $date = date('d-m-Y');
+        $detail = TransaksiItem::where('transaksi_id', $id)->paginate(99);
+        $pdf = PDF::loadview('transaksi.detail_pdf', compact('detail', 'transaksi'));
+        return $pdf->download('Detail_' . $date . '.pdf');
+    }
+    
     /**
      * Update the specified resource in storage.
      *

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\transaksiModel;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        if (Auth::user()->id_akses == 1) {
+            return view('dashboard.index');
+        } else {
+            return view('auth.login2');
+        }
     }
 }

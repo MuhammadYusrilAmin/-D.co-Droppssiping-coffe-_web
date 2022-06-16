@@ -39,7 +39,7 @@ class userController extends Controller
             $tokenResult = $user->createToken('authToken')->plainTextToken;
 
             return ResponseFormatter::success([
-                'access_token' => $tokenResult,
+                'access_token' => " ".$tokenResult,
                 'token_type' => 'Bearer',
                 'user' => $user
             ], 'User Registered');
@@ -76,7 +76,7 @@ class userController extends Controller
 
             $tokenResult = $user->createToken('authToken')->plainTextToken;
             return ResponseFormatter::success([
-                'access_token' => $tokenResult,
+                'access_token' => " ".$tokenResult,
                 'token_type' => 'Bearer',
                 'user' => $user
             ], 'Authenticated');
@@ -96,7 +96,7 @@ class userController extends Controller
     public function updateProfile(Request $request)
     {
         try {
-            $request->validate([
+            $validator = Validator::make($request->all(), [
                 'nama' => ['required', 'string', 'max:255'],
                 'username' => ['required', 'string', 'max:255', 'unique:users'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -112,6 +112,9 @@ class userController extends Controller
             ]);
 
             return ResponseFormatter::success($user, 'Profile Updated');
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 400);
+            }
         } catch (Exception $error) {
             return ResponseFormatter::error([
                 'message' => 'something went wrong',

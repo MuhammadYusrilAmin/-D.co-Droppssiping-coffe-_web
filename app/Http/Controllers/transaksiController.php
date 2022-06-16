@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\transaksiModel;
+use PDF;
 
 class transaksiController extends Controller
 {
@@ -17,8 +18,42 @@ class transaksiController extends Controller
         $transaksi = transaksiModel::where('status', 1)->paginate(5);
         return view('transaksi.dipacking ', compact('transaksi'));
     }
+    
+    public function search()
+    {
+        $id = $_POST['transaksi_id'];
+        $status = $_GET['id'];
 
-
+        if ($id == null) {
+            return redirect('transaksi/' . $status);
+        } else {
+            $transaksi = transaksiModel::where('id', $id)->get();
+            foreach ($transaksi as $transaksi1) {
+                $id_transaksi = $transaksi1->id;
+                $status_transaksi = $transaksi1->status;
+                if ($status_transaksi == 1) {
+                    $transaksi = transaksiModel::where('id', $id_transaksi)->paginate(25);
+                    return $status_transaksi;
+                } else if ($status_transaksi == 2) {
+                    $transaksi = transaksiModel::where('id', $id_transaksi)->paginate(25);
+                    return view('transaksi.dikirim ', compact('transaksi'));
+                } else if ($status_transaksi == 3) {
+                    $transaksi = transaksiModel::where('id', $id_transaksi)->paginate(25);
+                    return view('transaksi.diterima ', compact('transaksi'));
+                }
+            }
+            return redirect('transaksi/' . $status);
+        }
+    }
+    
+    public function cetak_pdf()
+    {
+        $transaksi =  transaksiModel::latest()->get();
+        $date = date('d-m-Y');
+        $pdf = PDF::loadview('transaksi.laporan_pdf', compact('transaksi'));
+        return $pdf->download('laporan-User_'.$date.'.pdf');
+    }
+    
     /**
      * Show the form for creating a new resource.
      *

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use PDF;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,16 @@ class userControl extends Controller
         $user = User::latest()->paginate(5);
         return view('user.index', compact('user'));
     }
+    
+    
+    public function cetak_pdf()
+    {
+        $user = User::latest()->get();
+        $date = date('d-m-Y');
+        $pdf = PDF::loadview('user.laporan_pdf', compact('user'));
+        return $pdf->download('laporan-User_'.$date.'.pdf');
 
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -132,6 +142,19 @@ class userControl extends Controller
             return redirect()->route('user.index')->with('success', 'Data User Berhasil Di Update');
         }
     }
+    
+
+    public function search()
+    {
+        $user = $_POST['user'];
+        if ($user == null) {
+            return redirect()->route('user.index');
+        } else {
+            $user = User::where('nama', 'like', '%' . $user . '%')->paginate(20);
+            return view('user.index', compact('user'));
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.

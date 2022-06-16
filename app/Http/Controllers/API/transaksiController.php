@@ -49,7 +49,6 @@ class transaksiController extends Controller
         $request->validate([
             'items' => 'required|array',
             'items.*.id' => 'exists:products,id',
-            'tanggal' => 'required',
             'total_harga' => 'required',
             'biaya_pengiriman' => 'required',
             'status' => 'required|in:1,2,3',
@@ -57,7 +56,7 @@ class transaksiController extends Controller
 
         $transaction = transaksiModel::create([
             'users_id' => Auth::user()->id,
-            'tanggal' => $request->tanggal,
+            'tanggal' => date("Y/m/d") ,
             'alamat' => $request->alamat,
             'total_harga' => $request->total_harga,
             'biaya_pengiriman' => $request->biaya_pengiriman,
