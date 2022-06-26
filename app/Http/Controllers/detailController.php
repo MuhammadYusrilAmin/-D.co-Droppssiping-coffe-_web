@@ -49,7 +49,7 @@ class detailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function show($id)
+    public function show($id)
     {
         $transaksi = transaksiModel::where('id', $id)->get();
         $detail = TransaksiItem::where('transaksi_id', $id)->paginate(99);
@@ -64,9 +64,18 @@ class detailController extends Controller
      */
     public function edit($id)
     {
-        //
+        $transaksi = transaksiModel::find($id);
+        if ($transaksi->status == 1) {
+            $transaksi->status = 2;
+            $transaksi->update();
+            return redirect('detail/' . $id)->with('success', 'Data barang telah Dikirim');
+        } else if ($transaksi->status == 2) {
+            $transaksi->status = 3;
+            $transaksi->update();
+            return redirect('detail/' . $id)->with('success', 'Data barang telah DiTerima');
+        }
     }
-    
+
     public function cetak_pdf($id)
     {
         $transaksi = transaksiModel::where('id', $id)->get();
@@ -75,7 +84,7 @@ class detailController extends Controller
         $pdf = PDF::loadview('transaksi.detail_pdf', compact('detail', 'transaksi'));
         return $pdf->download('Detail_' . $date . '.pdf');
     }
-    
+
     /**
      * Update the specified resource in storage.
      *

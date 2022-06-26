@@ -61,12 +61,12 @@
             </button>
         </a>
         @else
-        <a href="{{url('/cetak_detail', $transaksi1->id)}}">
+        <a href="{{route('detail.edit', $transaksi1->id)}}">
             <button type="button" class="btn btn-primary ms-4">
                 <span class="tf-icons bx bx-edit"></span>&nbsp; Ganti Status
             </button>
         </a>
-        <a href="{{route('detail.show', $transaksi1->id)}}">
+        <a href="{{url('/cetak_detail', $transaksi1->id)}}">
             <button type="button" class="btn btn-success">
                 <span class="tf-icons bx bx-printer"></span>&nbsp; Cetak Pesanan
             </button>
